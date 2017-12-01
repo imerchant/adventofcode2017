@@ -1,8 +1,8 @@
 namespace AdventOfCode2017.Day01
 {
-    public static class DuplicateDigitCalculator
+    public class DuplicateDigitCalculator
     {
-        public static int SumDuplicateNeighborDigits(string input)
+        public int SumDuplicateNeighborDigits(string input)
         {
             var sum = input[0] == input[input.Length - 1]
                 ? input[0] - '0'
@@ -17,23 +17,26 @@ namespace AdventOfCode2017.Day01
             return sum;
         }
 
-        public static int SumDuplicateTravelDigits(string input)
+        public int SumDuplicateTravelDigits(string input)
         {
             var sum = 0;
 
             for(var k = 0; k < input.Length; ++k)
             {
-                if(input[k] == input[IndexHalfwayAround(k, input.Length)])
+                if(input[k] == input.CharHalfwayAround(k))
                     sum += input[k] - '0';
             }
 
             return sum;
         }
+    }
 
-        private static int IndexHalfwayAround(int index, int length)
+    public static class StringExtensions
+    {
+        public static char CharHalfwayAround(this string source, int index)
         {
-            var half = length / 2;
-            return (index + half) % length;
+            var half = source.Length / 2;
+            return source[(index + half) % source.Length];
         }
     }
 }
