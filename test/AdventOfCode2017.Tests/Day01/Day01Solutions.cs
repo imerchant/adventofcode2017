@@ -18,9 +18,19 @@ public class Day01Solutions
     {
         var input = Input.Day01;
 
-        var sum = DuplicateDigitCalculator.SumDuplicateDigits(input);
+        var sum = DuplicateDigitCalculator.SumDuplicateNeighborDigits(input);
 
         sum.Should().Be(1203);
+    }
+
+    [Fact]
+    public void Puzzle2_CalculatesDigitSumForHalfwayAround()
+    {
+        var input = Input.Day01;
+
+        var sum = DuplicateDigitCalculator.SumDuplicateTravelDigits(input);
+
+        sum.Should().Be(1146);
     }
 
     [Theory]
@@ -30,6 +40,17 @@ public class Day01Solutions
     [InlineData("91212129", 9)]
     public void Puzzle1_ExamplesPass(string input, int expectedSum)
     {
-        DuplicateDigitCalculator.SumDuplicateDigits(input).Should().Be(expectedSum);
+        DuplicateDigitCalculator.SumDuplicateNeighborDigits(input).Should().Be(expectedSum);
+    }
+
+    [Theory]
+    [InlineData("1212", 6)]
+    [InlineData("1221", 0)]
+    [InlineData("123425", 4)]
+    [InlineData("123123", 12)]
+    [InlineData("12131415", 4)]
+    public void Puzzle2_ExamplesPass(string input, int expectedSum)
+    {
+        DuplicateDigitCalculator.SumDuplicateTravelDigits(input).Should().Be(expectedSum);
     }
 }
