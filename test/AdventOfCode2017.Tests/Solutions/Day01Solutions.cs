@@ -1,10 +1,10 @@
-using Xunit;
-using Xunit.Abstractions;
-using FluentAssertions;
 using AdventOfCode2017.Day01;
 using AdventOfCode2017.Inputs;
+using FluentAssertions;
+using Xunit;
+using Xunit.Abstractions;
 
-namespace AdventOfCode2017.Tests.Day01
+namespace AdventOfCode2017.Tests.Solutions
 {
     public class Day01Solutions : TestBase
     {

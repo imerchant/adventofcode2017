@@ -4,7 +4,7 @@ using FluentAssertions;
 using Xunit;
 using Xunit.Abstractions;
 
-namespace AdventOfCode2017.Tests.Day02
+namespace AdventOfCode2017.Tests.Solutions
 {
     public class Day02Solutions : TestBase
     {
@@ -28,7 +28,7 @@ namespace AdventOfCode2017.Tests.Day02
             rows.Sum(x => x.DivisibleResult).Should().Be(250);
         }
 
-        const string Puzzle1Example =
+        private const string Puzzle1Example =
 @"5 1 9 5
 7 5 3
 2 4 6 8";
@@ -41,7 +41,7 @@ namespace AdventOfCode2017.Tests.Day02
              rows.Sum(x => x.Difference).Should().Be(18);
         }
 
-        const string Puzzle2Example =
+        private const string Puzzle2Example =
 @"5 9 2 8
 9 4 7 3
 3 8 6 5";
