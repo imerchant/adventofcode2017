@@ -41,16 +41,16 @@ namespace AdventOfCode2017.Day03
             var count = 1;
             do
             {
+                if (value == target)
+                {
+                    return (coord.X, coord.Y, Coordinates);
+                }
                 var nextCoord = coord.Modify(mod);
                 if (Coordinates.Add(nextCoord))
                 {
                     value++;
                     mod = mod.Next;
                     coord = nextCoord;
-                    if (value == target)
-                    {
-                        return (nextCoord.X, nextCoord.Y, Coordinates);
-                    }
                 }
                 else
                 {

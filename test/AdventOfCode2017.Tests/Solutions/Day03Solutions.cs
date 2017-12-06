@@ -1,5 +1,7 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using AdventOfCode2017.Day03;
+using AdventOfCode2017.Inputs;
 using FluentAssertions;
 using Xunit;
 using Xunit.Abstractions;
@@ -12,6 +14,34 @@ namespace AdventOfCode2017.Tests.Solutions
         {
         }
 
+        [Fact]
+        public void Puzzle1_ManhattenDistanceToTarget()
+        {
+            var grid = new Grid();
+
+            var (x, y, _) = grid.RunTo(Input.Day03);
+
+            var distance = Math.Abs(x) + Math.Abs(y);
+
+            distance.Should().Be(552);
+        }
+
+        [Theory]
+        [InlineData(1, 0)]
+        [InlineData(12, 3)]
+        [InlineData(23, 2)]
+        [InlineData(1024, 31)]
+        public void Puzzle1_ExamplesPass(int target, int expectedDistance)
+        {
+            var grid = new Grid();
+
+            var (x, y, _) = grid.RunTo(target);
+
+            var distance = Math.Abs(x) + Math.Abs(y);
+
+            distance.Should().Be(expectedDistance);
+        }
+
         [Theory]
         [InlineData(9, 1, -1)]
         [InlineData(10, 2, -1)]
@@ -20,7 +50,7 @@ namespace AdventOfCode2017.Tests.Solutions
         [InlineData(13, 2, 2)]
         [InlineData(14, 1, 2)]
         [InlineData(15, 0, 2)]
-        public void Grid_CanRunTo_9_AndGetCoordCorrectly(int target, int expectedX, int expectedY)
+        public void Grid_CanRunToTarget_AndGetCoordCorrectly(int target, int expectedX, int expectedY)
         {
             var grid = new Grid();
 
