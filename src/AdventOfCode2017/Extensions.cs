@@ -20,5 +20,11 @@ namespace AdventOfCode2017
         {
             return source.Select(x => x.Trim());
         }
+
+        public static TValue GetValueOrDefault<TKey, TValue>(this IDictionary<TKey, TValue> dict, TKey key,
+            TValue defaultVaue = default(TValue))
+        {
+            return dict != null && dict.TryGetValue(key, out var value) ? value : defaultVaue;
+        }
     }
 }
