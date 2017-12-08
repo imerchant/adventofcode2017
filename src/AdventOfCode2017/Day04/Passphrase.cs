@@ -10,26 +10,13 @@ namespace AdventOfCode2017.Day04
 
         public bool IsValidByWordCount => new HashSet<string>(Words).Count == Words.Count;
 
-        public bool IsValidByAnagramDetection => CalculateValidByAnagram();
+        public bool IsValidByAnagramDetection => new HashSet<string>(Words.Select(x => x.OrderedString())).Count == Words.Count;
 
 
         public Passphrase(string phrase)
         {
             Phrase = phrase;
             Words = Phrase.SplitOn(' ').ToList();
-        }
-
-        private bool CalculateValidByAnagram()
-        {
-            var dict = new Dictionary<string, object>();
-            foreach (var word in Words)
-            {
-                var orderedWord = word.OrderBy(c => c).AsString();
-                if (dict.ContainsKey(orderedWord))
-                    return false;
-                dict.Add(orderedWord, null);
-            }
-            return true;
         }
     }
 }

@@ -36,5 +36,12 @@ namespace AdventOfCode2017
         {
             return chars.HasAny() ? new string(chars.ToArray()) : string.Empty;
         }
+
+        public static string OrderedString(this string source)
+        {
+            return source == null
+                ? string.Empty
+                : source.OrderBy(c => c).AsString();
+        }
     }
 }
