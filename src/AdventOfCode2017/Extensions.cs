@@ -26,5 +26,15 @@ namespace AdventOfCode2017
         {
             return dict != null && dict.TryGetValue(key, out var value) ? value : defaultVaue;
         }
+
+        public static bool HasAny<T>(this IEnumerable<T> source)
+        {
+            return source != null && source.Any();
+        }
+
+        public static string AsString(this IEnumerable<char> chars)
+        {
+            return chars.HasAny() ? new string(chars.ToArray()) : string.Empty;
+        }
     }
 }
