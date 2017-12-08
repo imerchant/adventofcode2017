@@ -61,5 +61,12 @@ namespace AdventOfCode2017
             }
             return (index, value);
         }
+
+        public static string JoinStrings(this IEnumerable<object> source, string separator)
+        {
+            return source.HasAny()
+                ? string.Join(separator, source)
+                : string.Empty;
+        }
     }
 }

@@ -48,12 +48,44 @@ namespace AdventOfCode2017.Day07
         public TowerProgram Parent { get; set; }
         public string ParentId => Parent?.Id;
 
+        private int? _discWeight;
+        public int DiscWeight => _discWeight ?? (_discWeight = GetDiscWeight()).Value;
+        private TowerProgram _childOutOfBalance;
+        public TowerProgram ChildOutOfBalance => _childOutOfBalance ?? (_childOutOfBalance = GetChildOutOfBalance());
+
+        public string SubTowerWeight(int levels = 1)
+        {
+            var tabs = Enumerable.Range(0, levels).Select(_ => "\t").JoinStrings(string.Empty);
+
+            return Children.HasAny()
+                ? $"{DiscWeight}:({Weight}\n{tabs}+ {string.Join($"\n{tabs}+ ", Children.Select(x => $"{x.Id}:{x.SubTowerWeight(levels + 1)}"))})"
+                : $"({Weight})";
+        }
+
         public TowerProgram(string id, int weight, IList<string> children)
         {
             Id = id;
             Weight = weight;
             ChildIds = children ?? new List<string>();
             Children = new List<TowerProgram>();
+        }
+
+        private int GetDiscWeight()
+        {
+            if (!Children.HasAny())
+                return Weight;
+
+            return Weight + Children.Sum(x => x.DiscWeight);
+        }
+
+        private TowerProgram GetChildOutOfBalance()
+        {
+            if (!Children.HasAny())
+                return null;
+
+            var byWeight = Children.GroupBy(x => x.DiscWeight);
+
+            return byWeight.FirstOrDefault(group => group.Count() == 1)?.FirstOrDefault();
         }
 
         public static Regex NoChildren = new Regex(@"(?'id'\w*?) \((?'weight'\d*?)\)", RegexOptions.Compiled);
