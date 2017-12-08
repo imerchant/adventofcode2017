@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace AdventOfCode2017.Inputs
 {
-    public partial class Input
+    public static partial class Input
     {
         public static IList<string> Day04Parse(string input) => input.SplitLines().ToList();
 

@@ -4,7 +4,7 @@ using AdventOfCode2017.Day02;
 
 namespace AdventOfCode2017.Inputs
 {
-    public partial class Input
+    public static partial class Input
     {
         public const string Day02 =
 @"4347	3350	196	162	233	4932	4419	3485	4509	4287	4433	4033	207	3682	2193	4223
