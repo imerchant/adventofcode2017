@@ -43,5 +43,23 @@ namespace AdventOfCode2017
                 ? string.Empty
                 : source.OrderBy(c => c).AsString();
         }
+
+        public static (int index, int? value) MaxOf(this IList<int> source)
+        {
+            if (!source.HasAny())
+                return (-1, null);
+
+            var index = 0;
+            var value = source[0];
+            for(var k = 1; k < source.Count; ++k)
+            {
+                if (source[k] > value)
+                {
+                    value = source[k];
+                    index = k;
+                }
+            }
+            return (index, value);
+        }
     }
 }
