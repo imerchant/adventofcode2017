@@ -18,17 +18,30 @@ namespace AdventOfCode2017.Tests.Solutions
             var starting = Input.Day06Parse(Input.Day06);
             var banks = new MemoryBanks(starting);
 
-            banks.LocateFirstDuplicateOrganization().Should().Be(3156);
+            var (stepsToCycle, _) = banks.LocateFirstDuplicateOrganization();
+            stepsToCycle.Should().Be(3156);
+        }
+
+        [Fact]
+        public void Puzzle2_FindStepsInCycle()
+        {
+            var starting = Input.Day06Parse(Input.Day06);
+            var banks = new MemoryBanks(starting);
+
+            var (_, stepsInCycle) = banks.LocateFirstDuplicateOrganization();
+            stepsInCycle.Should().Be(1610);
         }
 
         [Theory]
-        [InlineData("0 2 7 0", 5)]
-        public void Puzzle1_ExamplePasses(string startingArrangement, int expectedSteps)
+        [InlineData("0 2 7 0", 5, 4)]
+        public void Puzzle1And2_ExamplePasses(string startingArrangement, int expectedStepsToCycle, int expectedStepsInCycle)
         {
             var starting = Input.Day06Parse(startingArrangement);
             var banks = new MemoryBanks(starting);
 
-            banks.LocateFirstDuplicateOrganization().Should().Be(expectedSteps);
+            var (stepsToCycle, stepsInCycle) = banks.LocateFirstDuplicateOrganization();
+            stepsToCycle.Should().Be(expectedStepsToCycle);
+            stepsInCycle.Should().Be(expectedStepsInCycle);
         }
 
         [Theory]

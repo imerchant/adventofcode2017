@@ -14,16 +14,18 @@ namespace AdventOfCode2017.Day06
             SeenOrganizations = new HashSet<string>();
         }
 
-        public int LocateFirstDuplicateOrganization()
+        public (int stepsToCyle, int stepsInCycle) LocateFirstDuplicateOrganization()
         {
-            var steps = 0;
+            var organization = string.Empty;
             do
             {
                 Reorganize();
-                ++steps;
-            } while (SeenOrganizations.Add(ToString()));
+                organization = ToString();
+            } while (SeenOrganizations.Add(organization));
 
-            return steps;
+            var index = SeenOrganizations.ToList().IndexOf(organization);
+
+            return (SeenOrganizations.Count + 1, SeenOrganizations.Count - index);
         }
 
         public override string ToString()
