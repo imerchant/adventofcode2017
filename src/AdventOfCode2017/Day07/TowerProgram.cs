@@ -88,8 +88,8 @@ namespace AdventOfCode2017.Day07
             return byWeight.FirstOrDefault(group => group.Count() == 1)?.FirstOrDefault();
         }
 
-        public static Regex NoChildren = new Regex(@"(?'id'\w*?) \((?'weight'\d*?)\)", RegexOptions.Compiled);
-        public static Regex WithChildren = new Regex(@"(?'id'\w*?) \((?'weight'\d*?)\) -> (?'children'.*)", RegexOptions.Compiled);
+        public static readonly Regex NoChildren = new Regex(@"(?'id'\w*?) \((?'weight'\d*?)\)", RegexOptions.Compiled);
+        public static readonly Regex WithChildren = new Regex(@"(?'id'\w*?) \((?'weight'\d*?)\) -> (?'children'.*)", RegexOptions.Compiled);
         public static TowerProgram Parse(string input)
         {
             var withChildrenMatch = WithChildren.Match(input);
