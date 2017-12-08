@@ -16,6 +16,7 @@ namespace AdventOfCode2017.Tests
             JsonSettings = new JsonSerializerSettings();
             JsonSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
             JsonSettings.Converters.Add(new StringEnumConverter());
+            JsonSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
         }
 
         protected void PrintObj(object obj)
