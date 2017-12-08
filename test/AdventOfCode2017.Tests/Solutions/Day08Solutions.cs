@@ -14,7 +14,7 @@ namespace AdventOfCode2017.Tests.Solutions
         }
 
         [Fact]
-        public void Puzzle1_FindHighestValue_AfterEntireSetRuns()
+        public void Puzzle1And2_FindHighestValueAtEnd_AndHighestValueEncountered_AfterEntireSetRuns()
         {
             var instructions = Input.Day08Parse(Input.Day08);
             var instructionSet = new InstructionSet(instructions);
@@ -27,6 +27,7 @@ namespace AdventOfCode2017.Tests.Solutions
             var maxValue = instructionSet.Registers.Values.Max(x => x.Value);
 
             maxValue.Should().Be(4832);
+            instructionSet.HighestValueEncountered.Should().Be(5443);
         }
 
         private const string Puzzle1Example =
@@ -36,7 +37,7 @@ c dec -10 if a >= 1
 c inc -20 if c == 10";
 
         [Fact]
-        public void Puzzle1_ExamplesPass()
+        public void Puzzle1And2_ExamplesPass()
         {
             var instructions = Input.Day08Parse(Puzzle1Example);
             var instructionSet = new InstructionSet(instructions);
@@ -49,6 +50,7 @@ c inc -20 if c == 10";
             var maxValue = instructionSet.Registers.Values.Max(x => x.Value);
 
             maxValue.Should().Be(1);
+            instructionSet.HighestValueEncountered.Should().Be(10);
         }
 
         [Fact]
