@@ -22,7 +22,17 @@ namespace AdventOfCode2017.Tests.Solutions
             maze.CalculateStepsToExit().Should().Be(388611);
         }
 
-        private const string Puzzle1Example =
+        [Fact]
+        public void Puzzle1_FindStepsToExitMazeWithComplexValueCalculation()
+        {
+            var nodes = Input.Day05Parse(Input.Day05);
+
+            var maze = new Maze(nodes);
+
+            maze.CalculateStepsToExitWithComplexValueCalc().Should().Be(27763113);
+        }
+
+        private const string PuzzleExample =
 @"0
 3
 0
@@ -32,9 +42,17 @@ namespace AdventOfCode2017.Tests.Solutions
         [Fact]
         public void Puzzle1_ExamplePasses()
         {
-            var maze = new Maze(Input.Day05Parse(Puzzle1Example));
+            var maze = new Maze(Input.Day05Parse(PuzzleExample));
 
             maze.CalculateStepsToExit().Should().Be(5);
+        }
+
+        [Fact]
+        public void Puzzle2_ExamplePasses()
+        {
+            var maze = new Maze(Input.Day05Parse(PuzzleExample));
+
+            maze.CalculateStepsToExitWithComplexValueCalc().Should().Be(10);
         }
     }
 }
