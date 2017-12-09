@@ -14,7 +14,7 @@ namespace AdventOfCode2017.Day06
             SeenOrganizations = new HashSet<string>();
         }
 
-        public (int stepsToCyle, int stepsInCycle) LocateFirstDuplicateOrganization()
+        public (int stepsToCycle, int stepsInCycle) LocateFirstDuplicateOrganization()
         {
             var organization = string.Empty;
             do
