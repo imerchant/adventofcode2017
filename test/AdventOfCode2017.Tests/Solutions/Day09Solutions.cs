@@ -13,13 +13,14 @@ namespace AdventOfCode2017.Tests.Solutions
         }
 
         [Fact]
-        public void Puzzle1_SumOfGroupValues()
+        public void Puzzle1And2_SumOfGroupValues_AndCountOfGarbageCharacters()
         {
             var groupCounter = new GroupCounter(Input.Day09);
 
-            var (_, score, _) = groupCounter.CountGroupsAndScore();
+            var (_, score, garbageChars) = groupCounter.CountGroupsAndScore();
 
             score.Should().Be(16869);
+            garbageChars.Should().Be(7284);
         }
 
         [Fact]
@@ -53,7 +54,13 @@ namespace AdventOfCode2017.Tests.Solutions
         }
 
         [Theory]
-        [InlineData("{<>}", 0)]
+        [InlineData("<>", 0)]
+        [InlineData("<random characters>", 17)]
+        [InlineData("<<<<>", 3)]
+        [InlineData("<{!>}>", 2)]
+        [InlineData("<!!>", 0)]
+        [InlineData("<!!!>>", 0)]
+        [InlineData(@"<{o""i!a,<{i<a>", 10)]
         public void Puzzle2Examples_CountGarbageCharsCorrectly(string input, int expectedGarbageChars)
         {
             var groupCounter = new GroupCounter(input);

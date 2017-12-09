@@ -39,9 +39,6 @@
                     case '<' when !inGarbage:
                         inGarbage = true;
                         break;
-                    case '<' when inGarbage:
-                        charsInGarbage++;
-                        break;
                     case '>' when inGarbage:
                         inGarbage = false;
                         break;
