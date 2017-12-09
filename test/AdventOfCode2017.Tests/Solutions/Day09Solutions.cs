@@ -17,9 +17,9 @@ namespace AdventOfCode2017.Tests.Solutions
         {
             var groupCounter = new GroupCounter(Input.Day09);
 
-            var (_, score) = groupCounter.CountGroupsAndScore();
+            var (_, score, _) = groupCounter.CountGroupsAndScore();
 
-            score.Should().Be(-1);
+            score.Should().Be(16869);
         }
 
         [Fact]
@@ -46,10 +46,21 @@ namespace AdventOfCode2017.Tests.Solutions
         {
             var groupCounter = new GroupCounter(input);
 
-            var (groups, score) = groupCounter.CountGroupsAndScore();
+            var (groups, score, _) = groupCounter.CountGroupsAndScore();
 
             groups.Should().Be(expectedGroupCount);
             score.Should().Be(expectedScoreSum);
+        }
+
+        [Theory]
+        [InlineData("{<>}", 0)]
+        public void Puzzle2Examples_CountGarbageCharsCorrectly(string input, int expectedGarbageChars)
+        {
+            var groupCounter = new GroupCounter(input);
+
+            var (_, _, garbageChars) = groupCounter.CountGroupsAndScore();
+
+            garbageChars.Should().Be(expectedGarbageChars);
         }
     }
 }
