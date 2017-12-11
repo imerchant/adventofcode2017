@@ -21,22 +21,28 @@ namespace AdventOfCode2017.Day10
             SkipSize = 0;
         }
 
-        public void TwistSet(IList<int> lengths)
+        public void TwistSet(IList<int> lengths, int rounds = 1)
         {
-            foreach(var length in lengths)
+            if (rounds < 0)
+                throw new Exception("Can't do that.");
+
+            for (var round = 0; round < rounds; ++round)
             {
-                Twist(CurrentIndex, length);
+                foreach (var length in lengths)
+                {
+                    Twist(CurrentIndex, length);
 
-                CurrentIndex += length + SkipSize++;
+                    CurrentIndex += length + SkipSize++;
 
-                if(CurrentIndex >= Numbers.Count)
-                    CurrentIndex -= Numbers.Count;
+                    if (CurrentIndex >= Numbers.Count)
+                        CurrentIndex -= Numbers.Count;
+                }
             }
         }
 
         internal void Twist(int index, int length)
         {
-            if(length > Numbers.Count)
+            if (length > Numbers.Count)
                 throw new Exception("Can't do that");
 
             var sublist = GetSublist(index, length).Reverse().ToList();
@@ -45,9 +51,9 @@ namespace AdventOfCode2017.Day10
 
         internal IEnumerable<int> GetSublist(int index, int length)
         {
-            for(var k = 0; k < length; ++k, ++index)
+            for (var k = 0; k < length; ++k, ++index)
             {
-                if(index >= Numbers.Count)
+                if (index >= Numbers.Count)
                     index = 0;
 
                 yield return Numbers[index];
@@ -56,9 +62,9 @@ namespace AdventOfCode2017.Day10
 
         internal void ReplaceSublist(int index, IList<int> sublist)
         {
-            foreach(var item in sublist)
+            foreach (var item in sublist)
             {
-                if(index >= Numbers.Count)
+                if (index >= Numbers.Count)
                     index = 0;
 
                 Numbers[index++] = item;

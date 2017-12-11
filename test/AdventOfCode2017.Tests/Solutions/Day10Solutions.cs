@@ -26,6 +26,15 @@ namespace AdventOfCode2017.Tests.Solutions
         }
 
         [Fact]
+        public void Puzzle2_InterpretingInputAsAscii_AndAddingAddendum_WorksCorrectly()
+        {
+            var expectedLengths = new List<int> { 49, 44, 50, 44, 51, 17, 31, 73, 47, 23 };
+            var lengths = Input.Day10ParseAsAscii("1,2,3");
+
+            lengths.Should().Equal(expectedLengths);
+        }
+
+        [Fact]
         public void Puzzle1_ExamplesPass()
         {
             var numbers = new List<int> { 0, 1, 2, 3, 4 };
