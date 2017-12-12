@@ -7,6 +7,8 @@ namespace AdventOfCode2017.Day11
     {
         public HexCoord Current { get; private set; }
 
+        public int FurthestDistance { get; private set; }
+
         public int DistanceToCenter => Current.DistanceTo(HexCoord.Zero);
 
         public HexGrid()
@@ -21,7 +23,18 @@ namespace AdventOfCode2017.Day11
 
         public void Travel(IEnumerable<Direction> directions)
         {
-            Current = directions.Aggregate(Current, (cur, item) => cur.Mutate(item));
+            Current = directions.Aggregate(Current, Step);
+
+            HexCoord Step(HexCoord current, Direction direction)
+            {
+                var next = current.Mutate(direction);
+                var distance = next.DistanceTo(HexCoord.Zero);
+
+                if(distance > FurthestDistance)
+                    FurthestDistance = distance;
+
+                return next;
+            }
         }
     }
 }

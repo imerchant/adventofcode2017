@@ -13,7 +13,7 @@ namespace AdventOfCode2017.Tests.Solutions
         }
 
         [Fact]
-        public void Puzzle1_FindDistanceFromSteps()
+        public void Puzzle1And2_FindDistanceFromCenter_AndFurthestDistanceSeen()
         {
             var directions = Input.Day11Parse(Input.Day11).ParseEnums<Direction>();
             var hexGrid = new HexGrid();
@@ -21,6 +21,7 @@ namespace AdventOfCode2017.Tests.Solutions
             hexGrid.Travel(directions);
 
             hexGrid.DistanceToCenter.Should().Be(808);
+            hexGrid.FurthestDistance.Should().Be(1556);
         }
 
         [Theory]
