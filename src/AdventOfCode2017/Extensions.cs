@@ -68,5 +68,24 @@ namespace AdventOfCode2017
                 ? string.Join(separator, source)
                 : string.Empty;
         }
+
+        public static TEnum ParseEnum<TEnum>(this string value, bool ignoreCase = true, TEnum defaultValue = default(TEnum))
+            where TEnum : struct, IConvertible
+        {
+            if(!typeof(TEnum).IsEnum)
+                throw new InvalidOperationException("Given type is not an enum");
+
+            return Enum.TryParse(value, ignoreCase, out TEnum result)
+                ? result
+                : defaultValue;
+        }
+
+        public static IList<TEnum> ParseEnums<TEnum>(this IEnumerable<string> source, bool ignoreCase = true, TEnum defaultValue = default(TEnum))
+            where TEnum : struct, IConvertible
+        {
+            return source.HasAny()
+                ? source.Select(x => x.ParseEnum<TEnum>(ignoreCase, defaultValue)).ToList()
+                : Enumerable.Empty<TEnum>().ToList();
+        }
     }
 }
