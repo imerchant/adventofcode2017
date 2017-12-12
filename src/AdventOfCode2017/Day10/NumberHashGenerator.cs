@@ -1,16 +1,17 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using MoreLinq;
 
 namespace AdventOfCode2017.Day10
 {
     public class NumberHashGenerator
     {
-        public static readonly IList<int> DefaultNumbers = Enumerable.Range(0, 256).ToList();
+        public IList<int> DefaultNumbers => Enumerable.Range(0, 256).ToList();
 
         public IList<int> Numbers { get; }
         public int CurrentIndex { get; private set; }
-        public int SkipSize { get; private set; }
+        public int Skip { get; private set; }
 
         public int Checksum => Numbers[0] * Numbers[1];
 
@@ -18,10 +19,20 @@ namespace AdventOfCode2017.Day10
         {
             Numbers = numbers ?? DefaultNumbers;
             CurrentIndex = 0;
-            SkipSize = 0;
+            Skip = 0;
         }
 
-        public void TwistSet(IList<int> lengths, int rounds = 1)
+        public string CalculateKnotHash(IList<int> lengths)
+        {
+            TwistSet(lengths, 64);
+
+            return Numbers
+                .Batch(16)
+                .Select(batch => batch.Aggregate(0, (cumulative, item) => cumulative ^ item, i => $"{i:x2}"))
+                .JoinStrings();
+        }
+
+        internal void TwistSet(IList<int> lengths, int rounds = 1)
         {
             if (rounds < 0)
                 throw new Exception("Can't do that.");
@@ -32,10 +43,7 @@ namespace AdventOfCode2017.Day10
                 {
                     Twist(CurrentIndex, length);
 
-                    CurrentIndex += length + SkipSize++;
-
-                    if (CurrentIndex >= Numbers.Count)
-                        CurrentIndex -= Numbers.Count;
+                    CurrentIndex = (CurrentIndex + length + Skip++) % Numbers.Count;
                 }
             }
         }
@@ -51,12 +59,9 @@ namespace AdventOfCode2017.Day10
 
         internal IEnumerable<int> GetSublist(int index, int length)
         {
-            for (var k = 0; k < length; ++k, ++index)
+            for (var k = 0; k < length; ++k)
             {
-                if (index >= Numbers.Count)
-                    index = 0;
-
-                yield return Numbers[index];
+                yield return Numbers[index++ % Numbers.Count];
             }
         }
 
@@ -64,10 +69,7 @@ namespace AdventOfCode2017.Day10
         {
             foreach (var item in sublist)
             {
-                if (index >= Numbers.Count)
-                    index = 0;
-
-                Numbers[index++] = item;
+                Numbers[index++ % Numbers.Count] = item;
             }
         }
     }

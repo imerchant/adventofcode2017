@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace AdventOfCode2017.Inputs
 {
@@ -13,7 +12,7 @@ namespace AdventOfCode2017.Inputs
                 .ToList();
 
         public static IList<int> Day10ParseAsAscii(string input) =>
-            Encoding.ASCII.GetBytes(input)
+            input.Trim()
                 .Select(Convert.ToInt32)
                 .Concat(Day10Addendum)
                 .ToList();

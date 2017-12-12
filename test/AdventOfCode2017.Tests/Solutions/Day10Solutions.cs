@@ -5,6 +5,7 @@ using AdventOfCode2017.Inputs;
 using FluentAssertions;
 using Xunit;
 using Xunit.Abstractions;
+using MoreLinq;
 
 namespace AdventOfCode2017.Tests.Solutions
 {
@@ -23,6 +24,63 @@ namespace AdventOfCode2017.Tests.Solutions
             generator.TwistSet(lengths);
 
             generator.Checksum.Should().Be(5577);
+        }
+
+        [Fact]
+        public void Puzzle2_CalculateKnotHash()
+        {
+            var numbers = Input.Day10ParseAsAscii(Input.Day10);
+            var generator = new NumberHashGenerator();
+
+            var hash = generator.CalculateKnotHash(numbers);
+
+            hash.Should().Be("44f4befb0f303c0bafd085f97741d51d");
+        }
+
+        [Theory]
+        [InlineData("", "a2582a3a0e66e6e86e3812dcb672a272")]
+        [InlineData("AoC 2017", "33efeb34ea91902bb2f59c9920caa6cd")]
+        [InlineData("1,2,3", "3efbe78a8d82f29979031a4aa0b16a9d")]
+        [InlineData("1,2,4", "63960835bcdc130f0b66d7ff4f6a5a8e")]
+        public void Puzzle2_ExamplesPass(string input, string expectedHash)
+        {
+            var numbers = Input.Day10ParseAsAscii(input);
+            var generator = new NumberHashGenerator();
+
+            var hash = generator.CalculateKnotHash(numbers);
+
+            hash.Should().Be(expectedHash);
+        }
+
+        [Fact]
+        public void Hex_UsingIntToString_WorksCorrectly()
+        {
+            var ints = new List<int> { 64, 7, 255 };
+
+            var hex = ints.Select(i => $"{i:x2}").JoinStrings();
+
+            hex.Should().Be("4007ff");
+        }
+
+        [Fact]
+        public void Aggregate_XOR_WorksCorrectly()
+        {
+            var ints = new List<int> { 65, 27, 9, 1, 4, 3, 40, 50, 91, 7, 6, 0, 2, 5, 68, 22 };
+
+            var aggregateXor = ints.Aggregate(0, (cum, item) => cum ^ item);
+
+            aggregateXor.Should().Be(64);
+        }
+
+        [Fact]
+        public void MoreLinq_Batch_OperatesAsExpected()
+        {
+            var numbers = Enumerable.Range(0, 256);
+
+            var batches = numbers.Batch(16).ToList();
+
+            batches.Should().HaveCount(16);
+            batches.Should().Match(collection => collection.All(batch => batch.Count() == 16));
         }
 
         [Fact]
@@ -46,7 +104,7 @@ namespace AdventOfCode2017.Tests.Solutions
 
             generator.Numbers.Should().Equal(expectedList);
             generator.CurrentIndex.Should().Be(4);
-            generator.SkipSize.Should().Be(4);
+            generator.Skip.Should().Be(4);
             generator.Checksum.Should().Be(12);
         }
 
@@ -62,7 +120,7 @@ namespace AdventOfCode2017.Tests.Solutions
 
             generator.Numbers.Should().Equal(new List<int> { 0, 2, 1, 3, 4 });
             generator.CurrentIndex.Should().Be(4);
-            generator.SkipSize.Should().Be(2);
+            generator.Skip.Should().Be(2);
         }
 
         [Theory]
