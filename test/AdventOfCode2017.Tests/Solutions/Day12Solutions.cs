@@ -12,6 +12,15 @@ namespace AdventOfCode2017.Tests.Solutions
         {
         }
 
+        [Fact]
+        public void Puzzle1_CountProgramsThatCanReach0()
+        {
+            var input = Input.Day12Parse(Input.Day12);
+            var programSet = new ProgramSet(input);
+
+            programSet.ProgramsThatCanReach(0).Should().HaveCount(128);
+        }
+
         const string Puzzle1Example =
 @"0 <-> 2
 1 <-> 1
@@ -20,6 +29,15 @@ namespace AdventOfCode2017.Tests.Solutions
 4 <-> 2, 3, 6
 5 <-> 6
 6 <-> 4, 5";
+
+        [Fact]
+        public void Puzzle1_ExamplePasses()
+        {
+            var input = Input.Day12Parse(Puzzle1Example);
+            var programSet = new ProgramSet(input);
+
+            programSet.ProgramsThatCanReach(0).Should().HaveCount(6);
+        }
 
         [Fact]
         public void Puzzle1_Example_ParsesPrograms()
