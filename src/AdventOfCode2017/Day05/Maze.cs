@@ -37,11 +37,11 @@ namespace AdventOfCode2017.Day05
             } while (index >= 0 && index < Nodes.Count);
 
             return steps;
-        }
 
-        private static int ComplexValueCalc(int value)
-        {
-            return value >= 3 ? value - 1 : value + 1;
+            int ComplexValueCalc(int value)
+            {
+                return value >= 3 ? value - 1 : value + 1;
+            }
         }
     }
 }

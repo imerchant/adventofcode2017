@@ -12,7 +12,6 @@ namespace AdventOfCode2017.Day04
 
         public bool IsValidByAnagramDetection => new HashSet<string>(Words.Select(x => x.OrderedString())).Count == Words.Count;
 
-
         public Passphrase(string phrase)
         {
             Phrase = phrase;

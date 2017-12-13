@@ -8,7 +8,7 @@ namespace AdventOfCode2017.Inputs
         public static IList<string> Day04Parse(string input) => input.SplitLines().ToList();
 
         public const string Day04 =
-            @"bdwdjjo avricm cjbmj ran lmfsom ivsof
+@"bdwdjjo avricm cjbmj ran lmfsom ivsof
 mxonybc fndyzzi gmdp gdfyoi inrvhr kpuueel wdpga vkq
 bneh ylltsc vhryov lsd hmruxy ebnh pdln vdprrky
 fumay zbccai qymavw zwoove hqpd rcxyvy

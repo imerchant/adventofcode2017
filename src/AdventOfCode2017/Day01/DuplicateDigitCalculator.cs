@@ -23,20 +23,17 @@ namespace AdventOfCode2017.Day01
 
             for(var k = 0; k < input.Length; ++k)
             {
-                if(input[k] == input.CharHalfwayAround(k))
+                if(input[k] == CharHalfwayAround(input, k))
                     sum += input[k] - '0';
             }
 
             return sum;
-        }
-    }
 
-    public static class StringExtensions
-    {
-        public static char CharHalfwayAround(this string source, int index)
-        {
-            var half = source.Length / 2;
-            return source[(index + half) % source.Length];
+            char CharHalfwayAround(string source, int index)
+            {
+                var half = source.Length / 2;
+                return source[(index + half) % source.Length];
+            }
         }
     }
 }
