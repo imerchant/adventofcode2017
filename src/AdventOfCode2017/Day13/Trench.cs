@@ -32,10 +32,17 @@ namespace AdventOfCode2017.Day13
             }
         }
 
+        public int FindFirstSafeCrossing()
+        {
+            var delay = 0;
+            while(Layers.Values.Any(x => !x.IsSafe(delay)))
+                delay++;
+            return delay;
+        }
+
         public void WalkMoverToEnd()
         {
-            var guard = 0;
-            while(!MoverDone && guard < 1000)
+            while(!MoverDone)
             {
                 Step();
             }

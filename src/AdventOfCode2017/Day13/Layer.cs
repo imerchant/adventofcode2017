@@ -18,6 +18,11 @@ namespace AdventOfCode2017.Day13
             ScannerPosition = HasScanner ? 0 : -1;
         }
 
+        public bool IsSafe(int delay)
+        {
+            return !HasScanner || (delay + Id) % ((Depth - 1) * 2) != 0;
+        }
+
         public void Step()
         {
             if(HasScanner)

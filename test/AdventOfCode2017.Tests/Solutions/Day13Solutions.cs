@@ -23,16 +23,34 @@ namespace AdventOfCode2017.Tests.Solutions
             trench.Severity.Should().Be(788);
         }
 
-        private const string Puzzle1Example =
+        [Fact]
+        public void Puzzle2_FindFirstSafeCrossing()
+        {
+            var input = Input.Day13Parse(Input.Day13);
+            var trench = new Trench(input);
+
+            trench.FindFirstSafeCrossing().Should().Be(3905748);
+        }
+
+        private const string PuzzleExample =
 @"0: 3
 1: 2
 4: 4
 6: 4";
 
         [Fact]
+        public void Puzzle2_ExamplePasses()
+        {
+            var input = Input.Day13Parse(PuzzleExample);
+            var trench = new Trench(input);
+
+            trench.FindFirstSafeCrossing().Should().Be(10);
+        }
+
+        [Fact]
         public void Puzzle1_ExamplePasses()
         {
-            var input = Input.Day13Parse(Puzzle1Example);
+            var input = Input.Day13Parse(PuzzleExample);
             var trench = new Trench(input);
 
             trench.WalkMoverToEnd();
@@ -43,7 +61,7 @@ namespace AdventOfCode2017.Tests.Solutions
         [Fact]
         public void Trench_CreatesLayersNotExplicitlyInInput()
         {
-            var input = Input.Day13Parse(Puzzle1Example);
+            var input = Input.Day13Parse(PuzzleExample);
             var trench = new Trench(input);
 
             trench.Layers.Should().HaveCount(7);
