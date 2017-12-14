@@ -1,3 +1,4 @@
+using System.Linq;
 using AdventOfCode2017.Day13;
 using AdventOfCode2017.Inputs;
 using FluentAssertions;
@@ -18,9 +19,7 @@ namespace AdventOfCode2017.Tests.Solutions
             var input = Input.Day13Parse(Input.Day13);
             var trench = new Trench(input);
 
-            trench.WalkMoverToEnd();
-
-            trench.Severity.Should().Be(788);
+            trench.SeverityOfCrossing(0).Should().Be(788);
         }
 
         [Fact]
@@ -47,39 +46,24 @@ namespace AdventOfCode2017.Tests.Solutions
             trench.FindFirstSafeCrossing().Should().Be(10);
         }
 
+        [Theory]
+        [InlineData(0, 0)]
+        [InlineData(6, 0)]
+        [InlineData(0, 4)]
+        public void Puzzle1_Example_LayerIsUnsafeAtDelay(int layer, int delay)
+        {
+            var input = Input.Day13Parse(PuzzleExample);
+            var trench = new Trench(input);
+            trench.Layers.First(x => x.Id == layer).IsSafe(delay).Should().BeFalse();
+        }
+
         [Fact]
         public void Puzzle1_ExamplePasses()
         {
             var input = Input.Day13Parse(PuzzleExample);
             var trench = new Trench(input);
 
-            trench.WalkMoverToEnd();
-
-            trench.Severity.Should().Be(24);
-        }
-
-        [Fact]
-        public void Trench_CreatesLayersNotExplicitlyInInput()
-        {
-            var input = Input.Day13Parse(PuzzleExample);
-            var trench = new Trench(input);
-
-            trench.Layers.Should().HaveCount(7);
-            trench.Layers[2].HasScanner.Should().BeFalse();
-            trench.Layers[6].Severity.Should().Be(24);
-        }
-
-        [Fact]
-        public void Layer_Step_NeverMakesScannerMoveOutOfRange()
-        {
-            var layer = new Layer(0, 5, true);
-
-            for (var k = 0; k < 100; ++k)
-            {
-                layer.ScannerPosition.Should().BeInRange(0, layer.Depth - 1);
-                layer.Step();
-                layer.ScannerPosition.Should().BeInRange(0, layer.Depth - 1);
-            }
+            trench.SeverityOfCrossing(0).Should().Be(24);
         }
     }
 }
