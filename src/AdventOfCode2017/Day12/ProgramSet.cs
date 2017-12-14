@@ -50,5 +50,21 @@ namespace AdventOfCode2017.Day12
         // get first of remaining set, see which can reach that (even if just self)
         // repeat until no programs remain
         // count number of sets
+
+        public int CountGroups()
+        {
+            var programs = new List<int>(Programs.Keys);
+            var target = 0;
+            var groups = 0;
+            do
+            {
+                var adjacent = ProgramsThatCanReach(target);
+                groups++;
+                programs = programs.Except(adjacent).ToList();
+                target = programs.HasAny() ? programs.First() : -1;
+            } while(target >= 0);
+
+            return groups;
+        }
     }
 }
