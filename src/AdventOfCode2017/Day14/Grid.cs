@@ -31,20 +31,31 @@ namespace AdventOfCode2017.Day14
 
         public Grid(string keyString)
         {
-            Rows = new List<string>();
-            foreach (var k in Enumerable.Range(0, 128))
-            {
-                var rowKey = $"{keyString}-{k}";
-                var binary = GenerateHash(rowKey)
-                    .Select(x => _hexBinaryMap[x])
-                    .JoinStrings();
-                Rows.Add(binary);
-            }
+            Rows = Enumerable.Range(0, 128)
+                .Select(index =>
+                    GenerateHash($"{keyString}-{index}")
+                        .SelectMany(x => _hexBinaryMap[x])
+                        .AsString()
+                ).ToList();
         }
 
         public int CountLitCells()
         {
             return Rows.Sum(row => row.Count(c => c == '1'));
+        }
+
+        public int CountGroups()
+        {
+            var groups = 0;
+            var groupedCells = new HashSet<(int x, int y)>();
+
+            for (var x = 0; x < Rows.Count; ++x)
+            {
+                for (var y = 0; y < Rows[x].Length; ++y)
+                {
+                    
+                }
+            }
         }
 
         private string GenerateHash(string key)
