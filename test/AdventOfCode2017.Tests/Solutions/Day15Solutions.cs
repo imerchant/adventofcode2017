@@ -30,6 +30,23 @@ namespace AdventOfCode2017.Tests.Solutions
             matches.Should().Be(567);
         }
 
+        [Fact(Skip = "This takes 10+ seconds on my laptop.")]
+        public void Puzzle2_CountLow16WithGeneratorsScrutinizingTheirReturns()
+        {
+            var generatorA = new Generator(Input.Day15.SeedA, Input.Day15.FactorA, Input.Day15.ScrutinyA);
+            var generatorB = new Generator(Input.Day15.SeedB, Input.Day15.FactorB, Input.Day15.ScrutinyB);
+
+            var matches = 0;
+
+            for (var k = 0; k < 5_000_000; ++k)
+            {
+                if (generatorA.NextWithScrutiny().Low16() == generatorB.NextWithScrutiny().Low16())
+                    matches++;
+            }
+
+            matches.Should().Be(323);
+        }
+
         private static class Puzzle1Example
         {
             public const int SeedA = 65;
@@ -51,6 +68,23 @@ namespace AdventOfCode2017.Tests.Solutions
             }
 
             matches.Should().Be(588);
+        }
+
+        [Fact(Skip = "This takes 10+ seconds on my laptop.")]
+        public void Puzzle2_ExamplePasses()
+        {
+            var generatorA = new Generator(Puzzle1Example.SeedA, Input.Day15.FactorA, Input.Day15.ScrutinyA);
+            var generatorB = new Generator(Puzzle1Example.SeedB, Input.Day15.FactorB, Input.Day15.ScrutinyB);
+
+            var matches = 0;
+
+            for (var k = 0; k < 5_000_000; ++k)
+            {
+                if (generatorA.NextWithScrutiny().Low16() == generatorB.NextWithScrutiny().Low16())
+                    matches++;
+            }
+
+            matches.Should().Be(309);
         }
 
         [Fact]
