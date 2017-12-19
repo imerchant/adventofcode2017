@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace AdventOfCode2017.Day16
 {
@@ -12,6 +13,14 @@ namespace AdventOfCode2017.Day16
             _line = useThisInstead == null
                 ? Enumerable.Range('a', 16).Select(x => (char) x).ToArray()
                 : useThisInstead.ToCharArray();
+        }
+
+        public void Dance(IEnumerable<Operation> steps)
+        {
+            foreach (var step in steps)
+            {
+                step.Op(this);
+            }
         }
 
         public void Spin(int count)

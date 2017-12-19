@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using AdventOfCode2017.Day16;
 using AdventOfCode2017.Inputs;
@@ -25,6 +26,30 @@ namespace AdventOfCode2017.Tests.Solutions
             }
 
             dancers.Line.Should().Be("padheomkgjfnblic");
+        }
+
+        [Fact]
+        public void Puzzle2_DanceABillionTimes()
+        {
+            const int oneBillion = 1_000_000_000;
+            var operations = Input.Day16Parse(Input.Day16).Select(Operation.Parse).ToList();
+            var dancers = new Dancers();
+            var seenLines = new HashSet<string>();
+
+            for (var k = 0; k < oneBillion; ++k)
+            {
+                dancers.Dance(operations);
+                if (!seenLines.Add(dancers.Line))
+                    break;
+            }
+
+            var listOfSeen = new List<string>(seenLines);
+
+            var count = seenLines.Count;
+
+            var rounds = oneBillion % count;
+
+            listOfSeen[rounds - 1].Should().Be("bfcdeakhijmlgopn"); // -1 because of indexing at 0?
         }
 
         private const string Puzzle1ExampleDancers = "abcde";
