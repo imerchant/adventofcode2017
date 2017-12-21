@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using AdventOfCode2017.Day17;
 using AdventOfCode2017.Inputs;
 using FluentAssertions;
@@ -19,6 +20,40 @@ namespace AdventOfCode2017.Tests.Solutions
             var spinlock = new Spinlock(Input.Day17);
 
             spinlock.ValueAfterInsertions(2017).Should().Be(180);
+        }
+
+        [Fact]
+        public void Puzzle2_FindValueAtIndex1After50MillionInsertions()
+        {
+            var index = 0;
+            const int steps = Input.Day17;
+            int round;
+            var valuesAtIndex1 = new List<int>();
+
+            for (round = 1; round <= 50_000_000;)
+            {
+                index = (index + steps) % round;
+                if(index == 0)
+                    valuesAtIndex1.Add(round);
+                ++round;
+                index = (index + 1) % round;
+            }
+
+            valuesAtIndex1.Should().EndWith(13326437);
+        }
+
+        [Fact]
+        public void Puzzle2_LetsSeeWhatItsDoing()
+        {
+            var spinlock = new Spinlock(Input.Day17);
+
+            for (var k = 0; k < 20; ++k)
+            {
+                Output.WriteLine(spinlock.ToString());
+                spinlock.Step();
+            }
+
+            Output.WriteLine(spinlock.ToString());
         }
 
         [Fact]
