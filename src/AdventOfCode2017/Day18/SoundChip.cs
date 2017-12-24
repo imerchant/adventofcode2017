@@ -54,7 +54,7 @@ namespace AdventOfCode2017.Day18
                 }
                 else if (parts[0] == "jgz")
                 {
-                    if (value != 0)
+                    if (value > 0)
                         k += int.Parse(parts[2]);
                     else
                         ++k;

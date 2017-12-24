@@ -24,6 +24,31 @@ namespace AdventOfCode2017.Tests.Solutions
             run.ShouldThrow<Exception>().WithMessage("recovered: 8600");
         }
 
+        [Fact]
+        public void Puzzle2_CountSendsBySecondProgram()
+        {
+            var duet = new Duet(Input.Day18Parse(Input.Day18));
+
+            duet.CountMessagesSentBySecond().Should().Be(7239);
+        }
+
+        private const string Puzzle2Example =
+@"snd 1
+snd 2
+snd p
+rcv a
+rcv b
+rcv c
+rcv d";
+
+        [Fact]
+        public void Puzzle2_ExamplePasses()
+        {
+            var duet = new Duet(Input.Day18Parse(Puzzle2Example));
+
+            duet.CountMessagesSentBySecond().Should().Be(3);
+        }
+
         private const string Puzzle1Example =
 @"set a 1
 add a 2
