@@ -24,7 +24,7 @@ namespace AdventOfCode2017.Inputs
 401	151	309	961	124	1027	1084	389	1150	166	1057	137	932	669	590	188
 784	232	363	316	336	666	711	430	192	867	628	57	222	575	622	234";
 
-        public static List<SpreadsheetRow> Day02Parse(string input)
+        public static IList<SpreadsheetRow> Day02Parse(string input)
         {
             return input
                 .SplitLines()
