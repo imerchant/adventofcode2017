@@ -24,9 +24,9 @@ namespace AdventOfCode2017
         }
 
         public static TValue GetValueOrDefault<TKey, TValue>(this IDictionary<TKey, TValue> dict, TKey key,
-            TValue defaultVaue = default(TValue))
+            TValue defaultValue = default(TValue))
         {
-            return dict != null && dict.TryGetValue(key, out var value) ? value : defaultVaue;
+            return dict != null && dict.TryGetValue(key, out var value) ? value : defaultValue;
         }
 
         public static bool HasAny<T>(this IEnumerable<T> source)
