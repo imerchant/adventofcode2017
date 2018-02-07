@@ -159,7 +159,7 @@ namespace AdventOfCode2017.Tests.Solutions
             generator.Numbers.Should().Equal(expectedWholeList);
         }
 
-        private static IEnumerable<object[]> GetSublistOperations()
+        public static IEnumerable<object[]> GetSublistOperations()
         {
             yield return new object[] { 0, 2, new List<int> { 0, 1 } };
             yield return new object[] { 3, 4, new List<int> { 3, 4, 0, 1 } };
@@ -168,7 +168,7 @@ namespace AdventOfCode2017.Tests.Solutions
             yield return new object[] { 1, 1, new List<int> { 1 } };
         }
 
-        private static IEnumerable<object[]> ReplaceSublistOperations()
+        public static IEnumerable<object[]> ReplaceSublistOperations()
         {
             yield return new object[] { 0, new List<int> { 1, 0 }, new List<int> { 1, 0, 2, 3, 4 } };
             yield return new object[] { 4, new List<int> { 0, 4 }, new List<int> { 4, 1, 2, 3, 0 } };
@@ -177,7 +177,7 @@ namespace AdventOfCode2017.Tests.Solutions
             yield return new object[] { 2, new List<int>{ 2 }, new List<int> { 0, 1, 2, 3, 4 } };
         }
 
-        private static IEnumerable<object[]> TwistOperations()
+        public static IEnumerable<object[]> TwistOperations()
         {
             yield return new object[] { 0, 2, new List<int> { 1, 0, 2, 3, 4 } };
             yield return new object[] { 4, 2, new List<int> { 4, 1, 2, 3, 0 } };

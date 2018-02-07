@@ -21,7 +21,7 @@ namespace AdventOfCode2017.Tests.Solutions
 
             Action run = () => soundChip.FollowInstructions(instructions);
 
-            run.ShouldThrow<Exception>().WithMessage("recovered: 8600");
+            run.Should().Throw<Exception>().WithMessage("recovered: 8600");
         }
 
         [Fact]
@@ -69,7 +69,7 @@ jgz a -2";
 
             Action run = () => soundChip.FollowInstructions(instructions);
 
-            run.ShouldThrow<Exception>().WithMessage("recovered: 4");
+            run.Should().Throw<Exception>().WithMessage("recovered: 4");
         }
     }
 }

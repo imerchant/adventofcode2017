@@ -92,7 +92,7 @@ namespace AdventOfCode2017.Tests.Solutions
             group.Should().HaveCount(5);
         }
 
-        private static IEnumerable<object[]> GroupSamples()
+        public static IEnumerable<object[]> GroupSamples()
         {
             yield return new object[] { FourGroupSample, 4 };
             yield return new object[] { OneGroupSample, 1 };
