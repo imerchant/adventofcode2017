@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using AdventOfCode2017.Day17;
 using AdventOfCode2017.Inputs;
 using FluentAssertions;
