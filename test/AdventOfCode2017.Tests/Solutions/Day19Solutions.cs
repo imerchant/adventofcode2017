@@ -14,17 +14,22 @@ namespace AdventOfCode2017.Tests.Solutions
         }
 
         [Fact]
-        public void Puzzle1_DiagramCompletesTheWalk()
+        public void Puzzle1And2_DiagramCompletesTheWalk_AndCountsSteps()
         {
             var diagram = new RoutingDiagram(Input.Day19Parse(Input.Day19));
+            var steps = 0;
 
             Action walk = () =>
             {
                 while(true)
+                {
+                    steps++;
                     diagram.Step();
+                }
             };
 
             walk.Should().Throw<Exception>().WithMessage("End of path? Visited: EPYDUXANIT");
+            steps.Should().Be(17544);
         }
 
         [Fact]

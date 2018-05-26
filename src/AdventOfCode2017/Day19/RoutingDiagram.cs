@@ -40,7 +40,7 @@ namespace AdventOfCode2017.Day19
                 if(Current.Moving == Direction.N || Current.Moving == Direction.S)
                 {
                     var east = Next(Direction.E);
-                    if(east.IsGood && TryGet(east, out var eastLetter) && eastLetter == '-')
+                    if(east.IsGood && Grid[east.X][east.Y] == '-')
                     {
                         Current = (east.X, east.Y, Direction.E);
                         foundNewLocation = true;
@@ -101,17 +101,6 @@ namespace AdventOfCode2017.Day19
                 var nextIsBad = nextX >= Grid.Length || nextX < 0 || nextY >= Grid[0].Length || nextY < 0;
 
                 return (!nextIsBad, nextX, nextY);
-            }
-
-            bool TryGet((bool IsGood, int X, int Y) location, out char letter)
-            {
-                letter = '*';
-                if(location.IsGood)
-                {
-                    letter = Grid[location.X][location.Y];
-                    return true;
-                }
-                return false;
             }
 
             void MoveToNext()
