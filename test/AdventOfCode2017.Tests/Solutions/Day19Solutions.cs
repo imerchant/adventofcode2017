@@ -1,4 +1,5 @@
-﻿using AdventOfCode2017.Day19;
+﻿using System;
+using AdventOfCode2017.Day19;
 using AdventOfCode2017.Inputs;
 using FluentAssertions;
 using Xunit;
@@ -10,6 +11,20 @@ namespace AdventOfCode2017.Tests.Solutions
     {
         public Day19Solutions(ITestOutputHelper output) : base(output)
         {
+        }
+
+        [Fact]
+        public void Puzzle1_DiagramCompletesTheWalk()
+        {
+            var diagram = new RoutingDiagram(Input.Day19Parse(Input.Day19));
+
+            Action walk = () =>
+            {
+                while(true)
+                    diagram.Step();
+            };
+
+            walk.Should().Throw<Exception>().WithMessage("End of path? Visited: EPYDUXANIT");
         }
 
         [Fact]
