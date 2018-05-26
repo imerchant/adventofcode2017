@@ -4,7 +4,6 @@ using System.Text.RegularExpressions;
 
 namespace AdventOfCode2017.Day20
 {
-
     public class Particle : IEquatable<Particle>
     {
         public int Index { get; }
@@ -23,10 +22,10 @@ namespace AdventOfCode2017.Day20
         }
 
         private static readonly Regex ParseRegex = new Regex("p=<(?'pos'.*?)>, v=<(?'vel'.*?)>, a=<(?'acl'.*?)>", RegexOptions.Compiled);
-        public static Particle Parse(int index, string input)
+        public static Particle Parse(string input, int index)
         {
             var dataMatch = ParseRegex.Match(input);
-            if(!dataMatch.Success)
+            if (!dataMatch.Success)
             {
                 throw new Exception($"Could not parse {input}");
             }
@@ -56,8 +55,8 @@ namespace AdventOfCode2017.Day20
 
         public bool Equals(Particle other)
         {
-            if(ReferenceEquals(null, other)) return false;
-            if(ReferenceEquals(this, other)) return true;
+            if (ReferenceEquals(null, other)) return false;
+            if (ReferenceEquals(this, other)) return true;
             return X.Position == other.X.Position && Y.Position == other.Y.Position && Z.Position == other.Z.Position;
         }
 

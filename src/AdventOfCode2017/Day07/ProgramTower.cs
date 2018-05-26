@@ -11,12 +11,7 @@ namespace AdventOfCode2017.Day07
 
         public ProgramTower(IList<string> input)
         {
-            Programs = new Dictionary<string, TowerProgram>();
-            foreach (var item in input)
-            {
-                var program = TowerProgram.Parse(item);
-                Programs[program.Id] = program;
-            }
+            Programs = input.Select(TowerProgram.Parse).ToDictionary(x => x.Id);
 
             foreach (var program in Programs.Values)
             {

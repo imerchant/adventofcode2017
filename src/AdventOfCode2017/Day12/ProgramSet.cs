@@ -9,13 +9,7 @@ namespace AdventOfCode2017.Day12
 
         public ProgramSet(IList<string> input)
         {
-            Programs = new Dictionary<int, Program>();
-
-            foreach (var line in input)
-            {
-                var program = Program.Parse(line);
-                Programs[program.Id] = program;
-            }
+            Programs = input.Select(Program.Parse).ToDictionary(x => x.Id);
         }
 
         // todo

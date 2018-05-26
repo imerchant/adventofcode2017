@@ -11,29 +11,29 @@ namespace AdventOfCode2017.Day20
 
         public ParticleCollection(IList<string> input)
         {
-            Particles = input.Select((info, index) => Particle.Parse(index, info)).ToList();
+            Particles = input.Select(Particle.Parse).ToList();
         }
 
         public void Tick(bool destroyOnCollision = false)
         {
-            foreach(var particle in Particles)
+            foreach (var particle in Particles)
             {
                 particle.Tick();
             }
 
-            if(!destroyOnCollision)
+            if (!destroyOnCollision)
             {
                 return;
             }
 
             // could also set them as destroyed, avoid the extra allocations and removal
-            foreach(var particle in new List<Particle>(Particles))
+            foreach (var particle in new List<Particle>(Particles))
             {
                 var toRemove = Particles.Where(x => particle.Equals(x)).ToList();
-                if(toRemove.Count < 2)
+                if (toRemove.Count < 2)
                     continue;
 
-                foreach(var remove in toRemove)
+                foreach (var remove in toRemove)
                 {
                     Particles.Remove(remove);
                 }

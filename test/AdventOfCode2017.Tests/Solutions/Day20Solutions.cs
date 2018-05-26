@@ -76,7 +76,7 @@ p=< 3,0,0>, v=<-1,0,0>, a=< 0,0,0>";
         [Fact]
         public void ParticleParse_ParsesInputCorrectly()
         {
-            var particle = Particle.Parse(0, Example1Input);
+            var particle = Particle.Parse(Example1Input, 0);
 
             particle.X.Position.Should().Be(3);
             particle.X.Velocity.Should().Be(2);

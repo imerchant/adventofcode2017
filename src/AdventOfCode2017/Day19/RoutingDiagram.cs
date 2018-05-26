@@ -35,12 +35,12 @@ namespace AdventOfCode2017.Day19
         {
             var current = CurrentLetter;
             var foundNewLocation = false;
-            if(current == '+')
+            if (current == '+')
             {
-                if(Current.Moving == Direction.N || Current.Moving == Direction.S)
+                if (Current.Moving == Direction.N || Current.Moving == Direction.S)
                 {
                     var east = Next(Direction.E);
-                    if(east.IsGood && Grid[east.X][east.Y] == '-')
+                    if (east.IsGood && Grid[east.X][east.Y] == '-')
                     {
                         Current = (east.X, east.Y, Direction.E);
                         foundNewLocation = true;
@@ -48,7 +48,7 @@ namespace AdventOfCode2017.Day19
                     else
                     {
                         var west = Next(Direction.W);
-                        if(west.IsGood && Grid[west.X][west.Y] == '-')
+                        if (west.IsGood && Grid[west.X][west.Y] == '-')
                         {
                             Current = (west.X, west.Y, Direction.W);
                             foundNewLocation = true;
@@ -58,7 +58,7 @@ namespace AdventOfCode2017.Day19
                 else
                 {
                     var north = Next(Direction.N);
-                    if(north.IsGood && Grid[north.X][north.Y] == '|')
+                    if (north.IsGood && Grid[north.X][north.Y] == '|')
                     {
                         Current = (north.X, north.Y, Direction.N);
                         foundNewLocation = true;
@@ -66,7 +66,7 @@ namespace AdventOfCode2017.Day19
                     else
                     {
                         var south = Next(Direction.S);
-                        if(south.IsGood && Grid[south.X][south.Y] == '|')
+                        if (south.IsGood && Grid[south.X][south.Y] == '|')
                         {
                             Current = (south.X, south.Y, Direction.S);
                             foundNewLocation = true;
@@ -74,17 +74,17 @@ namespace AdventOfCode2017.Day19
                     }
                 }
 
-                if(!foundNewLocation)
+                if (!foundNewLocation)
                     throw new Exception("Could not navigate from '+' to next location");
             }
-            else if(char.IsLetter(current))
+            else if (char.IsLetter(current))
             {
                 VisitedLetters.Append(current);
                 MoveToNext();
-                if(!AcceptableCharsOtherThanLetters.Contains(CurrentLetter))
+                if (!AcceptableCharsOtherThanLetters.Contains(CurrentLetter))
                     throw new Exception($"End of path? Visited: {VisitedLetters}");
             }
-            else if(current == '-' || current == '|')
+            else if (current == '-' || current == '|')
             {
                 MoveToNext();
             }
@@ -107,7 +107,7 @@ namespace AdventOfCode2017.Day19
             {
                 var possibleLocation = Next(Current.Moving);
 
-                if(!possibleLocation.IsGood)
+                if (!possibleLocation.IsGood)
                     throw new Exception("Trying to move beyond the grid!");
 
                 Current = (possibleLocation.X, possibleLocation.Y, Current.Moving);

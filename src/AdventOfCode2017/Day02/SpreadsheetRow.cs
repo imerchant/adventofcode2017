@@ -23,14 +23,14 @@ namespace AdventOfCode2017.Day02
 
         private int CalculateDivisibleResult()
         {
-            for(var k = 0; k < Cells.Count; ++k)
+            for (var k = 0; k < Cells.Count; ++k)
             {
-                for(var j = 0; j < Cells.Count; ++j)
+                for (var j = 0; j < Cells.Count; ++j)
                 {
-                    if(k == j || Cells[j] < Cells[k])
+                    if (k == j || Cells[j] < Cells[k])
                         continue;
 
-                    if(Cells[j] % Cells[k] == 0)
+                    if (Cells[j] % Cells[k] == 0)
                         return Cells[j] / Cells[k];
                 }
             }

@@ -12,13 +12,13 @@ namespace AdventOfCode2017.Day18
             Registers = new Dictionary<char, long>();
         }
 
-        public void FollowInstructions(IList<string> instructons)
+        public void FollowInstructions(IList<string> instructions)
         {
             long lastPlayedSound = 0;
 
-            for (var k = 0; k >= 0 && k < instructons.Count;)
+            for (var k = 0; k >= 0 && k < instructions.Count;)
             {
-                var parts = instructons[k].SplitOn(' ');
+                var parts = instructions[k].SplitOn(' ');
                 var (id, value) = GetRegister(char.Parse(parts[1]));
                 if (parts[0] == "snd")
                 {

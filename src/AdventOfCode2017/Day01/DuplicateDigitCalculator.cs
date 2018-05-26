@@ -8,9 +8,9 @@ namespace AdventOfCode2017.Day01
                 ? input[0] - '0'
                 : 0;
 
-            for(var k = 0; k < input.Length - 1; ++k)
+            for (var k = 0; k < input.Length - 1; ++k)
             {
-                if(input[k] == input[k+1])
+                if (input[k] == input[k+1])
                     sum += input[k] - '0';
             }
 
@@ -21,9 +21,9 @@ namespace AdventOfCode2017.Day01
         {
             var sum = 0;
 
-            for(var k = 0; k < input.Length; ++k)
+            for (var k = 0; k < input.Length; ++k)
             {
-                if(input[k] == CharHalfwayAround(input, k))
+                if (input[k] == CharHalfwayAround(input, k))
                     sum += input[k] - '0';
             }
 
