@@ -28,6 +28,40 @@ namespace AdventOfCode2017.Tests.Solutions
         }
 
         [Fact]
+        public void Puzzle2_FindHowManyParticlesSurvivedAllTheCollisions()
+        {
+            var input = Input.Day20Parse(Input.Day20);
+            var collection = new ParticleCollection(input);
+
+            for(var k = 0; k < 39; ++k)
+            {
+                collection.Tick(destroyOnCollision: true);
+            }
+
+            collection.Particles.Should().HaveCount(477);
+        }
+
+        public const string Example2 =
+@"p=<-6,0,0>, v=< 3,0,0>, a=< 0,0,0>
+p=<-4,0,0>, v=< 2,0,0>, a=< 0,0,0>
+p=<-2,0,0>, v=< 1,0,0>, a=< 0,0,0>
+p=< 3,0,0>, v=<-1,0,0>, a=< 0,0,0>";
+
+        [Fact]
+        public void Puzzle2_ExampleCompletesCorrectly()
+        {
+            var input = Input.Day20Parse(Example2);
+            var collection = new ParticleCollection(input);
+
+            for(var k = 0; k < 3; ++k)
+            {
+                collection.Tick(true);
+            }
+
+            collection.Particles.Should().HaveCount(1).And.Contain(x => x.Index == 3);
+        }
+
+        [Fact]
         public void Puzzle1_InputParsesCorrectly()
         {
             var input = Input.Day20Parse(Input.Day20);
