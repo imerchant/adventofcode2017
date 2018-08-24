@@ -61,13 +61,13 @@ namespace AdventOfCode2017.Day14
             {
                 for (var y = 0; y < Rows[x].Length; ++y)
                 {
-                    if(Rows[x][y] != One || groupedCells.Contains((x, y)))
+                    if (Rows[x][y] != One || groupedCells.Contains((x, y)))
                         continue;
 
                     var group = FindGroup((x, y));
                     groups++;
                     foreach (var cell in group)
-                        if(!groupedCells.Add(cell))
+                        if (!groupedCells.Add(cell))
                             throw new Exception("that shouldn't happen");
                 }
             }

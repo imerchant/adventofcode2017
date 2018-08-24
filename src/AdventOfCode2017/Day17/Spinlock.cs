@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace AdventOfCode2017.Day17
 {

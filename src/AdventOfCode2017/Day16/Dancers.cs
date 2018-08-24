@@ -10,9 +10,7 @@ namespace AdventOfCode2017.Day16
 
         public Dancers(string useThisInstead = null)
         {
-            _line = useThisInstead == null
-                ? Enumerable.Range('a', 16).Select(x => (char) x).ToArray()
-                : useThisInstead.ToCharArray();
+            _line = useThisInstead?.ToCharArray() ?? Enumerable.Range('a', 16).Select(x => (char) x).ToArray();
         }
 
         public void Dance(IEnumerable<Operation> steps)
@@ -45,9 +43,8 @@ namespace AdventOfCode2017.Day16
 
         public void Partner(char one, char two)
         {
-            var line = Line;
-            var pos1 = line.IndexOf(one);
-            var pos2 = line.IndexOf(two);
+            var pos1 = Line.IndexOf(one);
+            var pos2 = Line.IndexOf(two);
 
             Exchange(pos1, pos2);
         }

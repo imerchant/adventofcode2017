@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using AdventOfCode2017.Day17;
 using AdventOfCode2017.Inputs;
 using FluentAssertions;
@@ -32,7 +33,7 @@ namespace AdventOfCode2017.Tests.Solutions
             for (round = 1; round <= 50_000_000;)
             {
                 index = (index + steps) % round;
-                if(index == 0)
+                if (index == 0)
                     valuesAtIndex1.Add(round);
                 ++round;
                 index = (index + 1) % round;
@@ -97,6 +98,18 @@ namespace AdventOfCode2017.Tests.Solutions
             spinlock.Step();
 
             spinlock.ToString().Should().Be("0 (1)");
+        }
+
+        [Fact]
+        public void Regex_Replace_WithInputPatternReplacement_WorksAsExpected()
+        {
+            const string input = "0";
+            const string pattern = "\\b0\\b";
+            const string replacement = "(0)";
+
+            var match = Regex.Match(input, pattern);
+
+            match.Success.Should().BeTrue();
         }
     }
 }

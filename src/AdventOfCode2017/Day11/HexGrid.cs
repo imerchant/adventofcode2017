@@ -30,7 +30,7 @@ namespace AdventOfCode2017.Day11
                 var next = current.Mutate(direction);
                 var distance = next.DistanceTo(HexCoord.Zero);
 
-                if(distance > FurthestDistance)
+                if (distance > FurthestDistance)
                     FurthestDistance = distance;
 
                 return next;

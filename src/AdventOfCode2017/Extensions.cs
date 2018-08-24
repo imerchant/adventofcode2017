@@ -79,7 +79,7 @@ namespace AdventOfCode2017
         public static TEnum ParseEnum<TEnum>(this string value, bool ignoreCase = true, TEnum defaultValue = default(TEnum))
             where TEnum : struct, IConvertible
         {
-            if(!typeof(TEnum).IsEnum)
+            if (!typeof(TEnum).IsEnum)
                 throw new InvalidOperationException("Given type is not an enum");
 
             return Enum.TryParse(value, ignoreCase, out TEnum result)

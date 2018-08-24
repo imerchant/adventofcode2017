@@ -21,7 +21,7 @@ namespace AdventOfCode2017.Day12
         public static Program Parse(string input)
         {
             var match = ProgramRegex.Match(input);
-            if(!match.Success)
+            if (!match.Success)
                 throw new Exception($"could not parse \"{input}\"");
 
             var id = int.Parse(match.Groups["id"].Value);

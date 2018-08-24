@@ -30,7 +30,7 @@ namespace AdventOfCode2017.Day12
                 var programsNotPresent = Programs.Keys.Except(adjacent);
                 foreach (var programId in programsNotPresent)
                 {
-                    if(adjacent.Overlaps(Programs[programId].Peers))
+                    if (adjacent.Overlaps(Programs[programId].Peers))
                         adjacent.Add(programId);
                 }
                 thisCount = adjacent.Count;

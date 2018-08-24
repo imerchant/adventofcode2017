@@ -16,7 +16,7 @@ namespace AdventOfCode2017.Day20
 
         public void Tick(bool destroyOnCollision = false)
         {
-            foreach (var particle in Particles)
+            foreach (var particle in Particles.AsParallel())
             {
                 particle.Tick();
             }
