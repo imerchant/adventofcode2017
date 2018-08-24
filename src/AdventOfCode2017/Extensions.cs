@@ -46,9 +46,7 @@ namespace AdventOfCode2017
 
         public static string OrderedString(this string source)
         {
-            return source == null
-                ? string.Empty
-                : source.OrderBy(c => c).AsString();
+            return source?.OrderBy(c => c).AsString() ?? string.Empty;
         }
 
         public static (int index, int? value) MaxOf(this IList<int> source)
@@ -58,7 +56,7 @@ namespace AdventOfCode2017
 
             var index = 0;
             var value = source[0];
-            for(var k = 1; k < source.Count; ++k)
+            for (var k = 1; k < source.Count; ++k)
             {
                 if (source[k] > value)
                 {

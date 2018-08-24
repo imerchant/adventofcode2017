@@ -19,7 +19,7 @@ namespace AdventOfCode2017.Tests.Solutions
             var input = Input.Day20Parse(Input.Day20);
             var collection = new ParticleCollection(input);
 
-            for(var k = 0; k < 1000; ++k)
+            for (var k = 0; k < 1000; ++k)
             {
                 collection.Tick();
             }
@@ -33,7 +33,7 @@ namespace AdventOfCode2017.Tests.Solutions
             var input = Input.Day20Parse(Input.Day20);
             var collection = new ParticleCollection(input);
 
-            for(var k = 0; k < 39; ++k)
+            for (var k = 0; k < 39; ++k)
             {
                 collection.Tick(destroyOnCollision: true);
             }
@@ -53,7 +53,7 @@ p=< 3,0,0>, v=<-1,0,0>, a=< 0,0,0>";
             var input = Input.Day20Parse(Example2);
             var collection = new ParticleCollection(input);
 
-            for(var k = 0; k < 3; ++k)
+            for (var k = 0; k < 3; ++k)
             {
                 collection.Tick(true);
             }
