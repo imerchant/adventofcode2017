@@ -1,7 +1,12 @@
+using System.Collections.Generic;
+using System.Linq;
+
 namespace AdventOfCode2017.Inputs
 {
     public partial class Input
     {
+        public static IList<string> Day21Parse(string input) => input.SplitLines().ToList();
+
         public const string Day21 =
 @"../.. => .../#.#/...
 #./.. => ..#/..#/#..

@@ -11,6 +11,11 @@ namespace AdventOfCode2017
             return source.Split(separators, StringSplitOptions.RemoveEmptyEntries);
         }
 
+        public static string[] SplitOn(this string source, params string[] separators)
+        {
+            return source.Split(separators, StringSplitOptions.RemoveEmptyEntries);
+        }
+
         public static IEnumerable<string> SplitLines(this string source, bool trimEnds = true)
         {
             return trimEnds

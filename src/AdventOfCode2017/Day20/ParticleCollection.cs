@@ -7,7 +7,7 @@ namespace AdventOfCode2017.Day20
     public class ParticleCollection
     {
         public IList<Particle> Particles { get; }
-        public Particle ClosestParticle => Particles.MinBy(x => x.Distance);
+        public Particle ClosestParticle => Particles.MinBy(x => x.Distance).First();
 
         public ParticleCollection(IList<string> input)
         {
