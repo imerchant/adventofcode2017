@@ -75,7 +75,7 @@ namespace AdventOfCode2017
         }
 
         public static TEnum ParseEnum<TEnum>(this string value, bool ignoreCase = true, TEnum defaultValue = default(TEnum))
-            where TEnum : struct, IConvertible
+            where TEnum : struct, System.Enum
         {
             if (!typeof(TEnum).IsEnum)
                 throw new InvalidOperationException("Given type is not an enum");
@@ -86,7 +86,7 @@ namespace AdventOfCode2017
         }
 
         public static IList<TEnum> ParseEnums<TEnum>(this IEnumerable<string> source, bool ignoreCase = true, TEnum defaultValue = default(TEnum))
-            where TEnum : struct, IConvertible
+            where TEnum : struct, System.Enum
         {
             return source.HasAny()
                 ? source.Select(x => x.ParseEnum<TEnum>(ignoreCase, defaultValue)).ToList()
