@@ -95,15 +95,15 @@ namespace AdventOfCode2017.Day21
             var output = new List<string>();
             foreach (var splitRow in input)
             {
-                var rowOutput = Enumerable.Repeat("", splitRow[0].Count).ToList();
+                var rowOutput = Enumerable.Range(1, splitRow[0].Count).Select(_ => new StringBuilder()).ToList();
                 foreach (var block in splitRow)
                 {
                     for (var row = 0; row < block.Count; ++row)
                     {
-                        rowOutput[row] += block[row];
+                        rowOutput[row].Append(block[row]);
                     }
                 }
-                output.AddRange(rowOutput);
+                output.AddRange(rowOutput.Select(x => x.ToString()));
             }
             return output;
         }
@@ -142,11 +142,11 @@ namespace AdventOfCode2017.Day21
             {
                 Content = FindReplacement(Content);
             }
-            else if(Content.Count % 2 == 0)
+            else if (Content.Count % 2 == 0)
             {
                 Content = SplitAndReplace(2, Content);
             }
-            else if(Content.Count % 3 == 0)
+            else if (Content.Count % 3 == 0)
             {
                 Content = SplitAndReplace(3, Content);
             }
