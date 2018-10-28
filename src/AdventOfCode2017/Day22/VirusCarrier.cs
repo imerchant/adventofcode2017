@@ -5,7 +5,15 @@ namespace AdventOfCode2017.Day22
 {
     public class VirusCarrier
     {
-        public IDictionary<(int X, int Y), bool> VisitedNodes { get; }
+        private static IDictionary<NodeState, NodeState> StateMutations = new Dictionary<NodeState, NodeState>
+        {
+            { NodeState.Clean, NodeState.Weakened },
+            { NodeState.Weakened, NodeState.Infected },
+            { NodeState.Infected, NodeState.Flagged },
+            { NodeState.Flagged, NodeState.Clean }
+        };
+
+        public IDictionary<(int X, int Y), NodeState> VisitedNodes { get; }
         public Direction Facing { get; private set; }
         public (int X, int Y) Location { get; private set; }
         public int InfectionsCaused { get; private set; }
@@ -25,13 +33,13 @@ namespace AdventOfCode2017.Day22
             Location = ((int)Math.Floor(input.Count / 2.0), (int)Math.Floor(input[0].Length / 2.0));
             InfectionsCaused = 0;
 
-            VisitedNodes = new Dictionary<(int, int), bool>();
+            VisitedNodes = new Dictionary<(int, int), NodeState>();
 
             for (var row = 0; row < input.Count; ++row)
             {
                 for (var col = 0; col < input[row].Length; ++col)
                 {
-                    VisitedNodes[(row, col)] = input[row][col] == '#';
+                    VisitedNodes[(row, col)] = input[row][col] == '#' ? NodeState.Infected : NodeState.Clean;
                 }
             }
         }
@@ -48,13 +56,44 @@ namespace AdventOfCode2017.Day22
             // infect or clean
             if (locationIsInfected)
             {
-                VisitedNodes[Location] = false;
+                VisitedNodes[Location] = NodeState.Clean;
             }
             else
             {
                 InfectionsCaused++;
-                VisitedNodes[Location] = true;
+                VisitedNodes[Location] = NodeState.Infected;
             }
+
+            // move
+            Location = (Location.X + Facing.MutateX, Location.Y + Facing.MutateY);
+        }
+
+        public void EvolvedTick()
+        {
+            var state = GetState(Location);
+
+            //move
+            switch(state)
+            {
+                case NodeState.Clean:
+                    Facing = Facing.Left;
+                    break;
+                case NodeState.Weakened:
+                    // don't change direction
+                    break;
+                case NodeState.Infected:
+                    Facing = Facing.Right;
+                    break;
+                case NodeState.Flagged:
+                    Facing = Facing.Left.Left; // turn around
+                    break;
+            }
+
+            // act
+            var nextState = StateMutations[state];
+            if (nextState == NodeState.Infected)
+                InfectionsCaused++;
+            VisitedNodes[Location] = nextState;
 
             // move
             Location = (Location.X + Facing.MutateX, Location.Y + Facing.MutateY);
@@ -62,12 +101,17 @@ namespace AdventOfCode2017.Day22
 
         private bool IsInfected((int X, int Y) location)
         {
-            if (VisitedNodes.TryGetValue(location, out var infected))
+            return GetState(location) == NodeState.Infected;
+        }
+
+        private NodeState GetState((int X, int Y) location)
+        {
+            if (VisitedNodes.TryGetValue(location, out var state))
             {
-                return infected;
+                return state;
             }
-            VisitedNodes[location] = false;
-            return false;
+            VisitedNodes[location] = NodeState.Clean;
+            return NodeState.Clean;
         }
     }
 }

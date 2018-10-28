@@ -14,6 +14,20 @@ namespace AdventOfCode2017.Tests.Solutions
         {
         }
 
+        [Fact(Skip = "Adds a couple seconds to the test runs")]
+        public void Puzzle2_CountInfectionsCaused_ByEvolvedBehavior_OverTheCourseOf10000000Ticks()
+        {
+            var input = Input.Day22Parse(Input.Day22);
+            var carrier = new VirusCarrier(input);
+
+            for (var k = 0; k < 10_000_000; ++k)
+            {
+                carrier.EvolvedTick();
+            }
+
+            carrier.InfectionsCaused.Should().Be(2512380);
+        }
+
         [Fact]
         public void Puzzle1_CountInfectionsCaused_OverTheCourseOf10000Ticks()
         {
@@ -28,7 +42,35 @@ namespace AdventOfCode2017.Tests.Solutions
             carrier.InfectionsCaused.Should().Be(5339);
         }
 
-        public const string Puzzle1Example =
+        [Theory]
+        [InlineData(100, 26)]
+        [InlineData(10_000_000, 2511944)]
+        public void EvolvedTick_RecordsInfectionsCorrectly(int ticks, int expectedCausedInfections)
+        {
+            var input = Input.Day22Parse(PuzzleExample);
+            var carrier = new VirusCarrier(input);
+
+            for (var k = 0; k < ticks; ++k)
+            {
+                carrier.EvolvedTick();
+            }
+
+            carrier.InfectionsCaused.Should().Be(expectedCausedInfections);
+        }
+
+        [Fact]
+        public void EvolvedTick_WeakensRatherThanInfects_InitialLocation()
+        {
+            var input = Input.Day22Parse(PuzzleExample);
+            var carrier = new VirusCarrier(input);
+            (int originalX, int originalY) = carrier.Location;
+
+            carrier.EvolvedTick();
+
+            carrier.VisitedNodes[(originalX, originalY)].Should().Be(NodeState.Weakened);
+        }
+
+        public const string PuzzleExample =
 @"..#
 #..
 ...";
@@ -39,7 +81,7 @@ namespace AdventOfCode2017.Tests.Solutions
         [InlineData(10_000, 5587)]
         public void VirusCarrier_RecordsInfectionsCorrectly(int ticks, int expectedCausedInfections)
         {
-            var input = Input.Day22Parse(Puzzle1Example);
+            var input = Input.Day22Parse(PuzzleExample);
             var carrier = new VirusCarrier(input);
 
             for (var k = 0; k < ticks; ++k)
@@ -53,7 +95,7 @@ namespace AdventOfCode2017.Tests.Solutions
         [Fact]
         public void VirusCarrier_TurnsAndMovesCorrectly()
         {
-            var input = Input.Day22Parse(Puzzle1Example);
+            var input = Input.Day22Parse(PuzzleExample);
             var carrier = new VirusCarrier(input);
 
             carrier.Tick();
@@ -65,7 +107,7 @@ namespace AdventOfCode2017.Tests.Solutions
         [Fact]
         public void VirusCarrier_IdentifiesStartingPosition()
         {
-            var input = Input.Day22Parse(Puzzle1Example);
+            var input = Input.Day22Parse(PuzzleExample);
 
             var carrier = new VirusCarrier(input);
 
@@ -86,7 +128,7 @@ namespace AdventOfCode2017.Tests.Solutions
         public static IEnumerable<object[]> CenterOfInputCases()
         {
             yield return new object[] { Input.Day22, 12, 12 };
-            yield return new object[] { Puzzle1Example, 1, 1 };
+            yield return new object[] { PuzzleExample, 1, 1 };
         }
     }
 }
