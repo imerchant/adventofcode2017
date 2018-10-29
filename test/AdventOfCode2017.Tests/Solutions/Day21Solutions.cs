@@ -13,23 +13,6 @@ namespace AdventOfCode2017.Tests.Solutions
         {
         }
 
-        [Fact(Skip = "Adds a couple seconds to the test runs")]
-        public void Puzzle2_CountLitPixels_After18Iterations()
-        {
-            var replacements = Input.Day21Parse(Input.Day21);
-            var grid = new Grid(replacements);
-
-            for (var k = 0; k < 18; ++k)
-            {
-                grid.Iterate();
-                // Output.WriteLine($"After iteration {k+1}:");
-                // Output.WriteLine($"{grid.Content.JoinStrings("\n")}");
-                // Output.WriteLine(string.Empty);
-            }
-
-            grid.LitPixels.Should().Be(1277716);
-        }
-
         [Fact]
         public void Puzzle1_CountLitPixels_After5Iterations()
         {
@@ -45,6 +28,23 @@ namespace AdventOfCode2017.Tests.Solutions
             }
 
             grid.LitPixels.Should().Be(110);
+        }
+
+        [Fact(Skip = "Adds a couple seconds to the test runs")]
+        public void Puzzle2_CountLitPixels_After18Iterations()
+        {
+            var replacements = Input.Day21Parse(Input.Day21);
+            var grid = new Grid(replacements);
+
+            for (var k = 0; k < 18; ++k)
+            {
+                grid.Iterate();
+                // Output.WriteLine($"After iteration {k+1}:");
+                // Output.WriteLine($"{grid.Content.JoinStrings("\n")}");
+                // Output.WriteLine(string.Empty);
+            }
+
+            grid.LitPixels.Should().Be(1277716);
         }
 
         public const string Puzzle1Example =

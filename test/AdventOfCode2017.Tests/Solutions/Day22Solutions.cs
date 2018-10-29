@@ -14,20 +14,6 @@ namespace AdventOfCode2017.Tests.Solutions
         {
         }
 
-        [Fact(Skip = "Adds a couple seconds to the test runs")]
-        public void Puzzle2_CountInfectionsCaused_ByEvolvedBehavior_OverTheCourseOf10000000Ticks()
-        {
-            var input = Input.Day22Parse(Input.Day22);
-            var carrier = new VirusCarrier(input);
-
-            for (var k = 0; k < 10_000_000; ++k)
-            {
-                carrier.EvolvedTick();
-            }
-
-            carrier.InfectionsCaused.Should().Be(2512380);
-        }
-
         [Fact]
         public void Puzzle1_CountInfectionsCaused_OverTheCourseOf10000Ticks()
         {
@@ -40,6 +26,20 @@ namespace AdventOfCode2017.Tests.Solutions
             }
 
             carrier.InfectionsCaused.Should().Be(5339);
+        }
+
+        [Fact(Skip = "Adds a couple seconds to the test runs")]
+        public void Puzzle2_CountInfectionsCaused_ByEvolvedBehavior_OverTheCourseOf10000000Ticks()
+        {
+            var input = Input.Day22Parse(Input.Day22);
+            var carrier = new VirusCarrier(input);
+
+            for (var k = 0; k < 10_000_000; ++k)
+            {
+                carrier.EvolvedTick();
+            }
+
+            carrier.InfectionsCaused.Should().Be(2512380);
         }
 
         [Theory]
