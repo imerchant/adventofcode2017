@@ -33,7 +33,7 @@ namespace AdventOfCode2017.Day22
             Location = ((int)Math.Floor(input.Count / 2.0), (int)Math.Floor(input[0].Length / 2.0));
             InfectionsCaused = 0;
 
-            VisitedNodes = new Dictionary<(int, int), NodeState>();
+            VisitedNodes = new DefaultDictionary<(int, int), NodeState>(() => NodeState.Clean);
 
             for (var row = 0; row < input.Count; ++row)
             {
@@ -46,7 +46,7 @@ namespace AdventOfCode2017.Day22
 
         public void Tick()
         {
-            var locationIsInfected = IsInfected(Location);
+            var locationIsInfected = VisitedNodes[Location] == NodeState.Infected;
 
             // turn
             Facing = locationIsInfected
@@ -70,7 +70,7 @@ namespace AdventOfCode2017.Day22
 
         public void EvolvedTick()
         {
-            var state = GetState(Location);
+            var state = VisitedNodes[Location];
 
             //move
             switch(state)
@@ -97,21 +97,6 @@ namespace AdventOfCode2017.Day22
 
             // move
             Location = (Location.X + Facing.MutateX, Location.Y + Facing.MutateY);
-        }
-
-        private bool IsInfected((int X, int Y) location)
-        {
-            return GetState(location) == NodeState.Infected;
-        }
-
-        private NodeState GetState((int X, int Y) location)
-        {
-            if (VisitedNodes.TryGetValue(location, out var state))
-            {
-                return state;
-            }
-            VisitedNodes[location] = NodeState.Clean;
-            return NodeState.Clean;
         }
     }
 }
