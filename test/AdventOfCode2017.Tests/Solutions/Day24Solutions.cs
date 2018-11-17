@@ -2,6 +2,7 @@ using System.Linq;
 using AdventOfCode2017.Day24;
 using AdventOfCode2017.Inputs;
 using FluentAssertions;
+using MoreLinq;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -14,7 +15,7 @@ namespace AdventOfCode2017.Tests.Solutions
         }
 
         [Fact]
-        public void Puzzle1_FindStrongestBridge()
+        public void Puzzle1And2_FindStrongestBridge_AndStrongestOfTheLongest()
         {
             var input = Input.Day24Parse(Input.Day24);
             var builder = new BridgeBuilder(input);
@@ -22,6 +23,8 @@ namespace AdventOfCode2017.Tests.Solutions
             var bridges = builder.BuildBridges().ToList();
 
             bridges.Max(x => x.Strength).Should().Be(2006);
+
+            bridges.MaxBy(x => x.Components.Count).Max(x => x.Strength).Should().Be(1994);
         }
 
         private const string Puzzle1Example =
