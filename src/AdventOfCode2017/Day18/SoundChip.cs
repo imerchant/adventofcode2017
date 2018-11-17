@@ -9,7 +9,7 @@ namespace AdventOfCode2017.Day18
 
         public SoundChip()
         {
-            Registers = new Dictionary<char, long>();
+            Registers = new DefaultDictionary<char, long>(() => 0);
         }
 
         public void FollowInstructions(IList<string> instructions)
@@ -79,14 +79,7 @@ namespace AdventOfCode2017.Day18
 
         private (char id, long value) GetRegister(char id)
         {
-            if (Registers.TryGetValue(id, out var value))
-            {
-                return (id, value);
-            }
-
-            value = 0;
-            Registers[id] = value;
-            return (id, value);
+            return (id, Registers[id]);
         }
     }
 }

@@ -12,30 +12,20 @@ namespace AdventOfCode2017.Day08
         public InstructionSet(IEnumerable<string> instructions)
         {
             Instructions = instructions.Select(Instruction.Parse).ToList();
-            Registers = new Dictionary<string, Register>();
+            Registers = new DefaultDictionary<string, Register>(id => new Register(id));
             HighestValueEncountered = 0;
         }
 
         public void RunInstruction(Instruction instruction)
         {
-            var testRegister = GetRegister(instruction.TestRegister);
-            var targetRegister = GetRegister(instruction.TargetRegister);
+            var testRegister = Registers[instruction.TestRegister];
+            var targetRegister = Registers[instruction.TargetRegister];
 
             if (instruction.TestComparison.CompareTo(testRegister.Value))
             {
                 targetRegister.Value = instruction.TargetOperation.OperateOn(targetRegister.Value);
                 if (targetRegister.Value > HighestValueEncountered)
                     HighestValueEncountered = targetRegister.Value;
-            }
-            
-            Register GetRegister(string id)
-            {
-                if (Registers.TryGetValue(id, out var register))
-                    return register;
-
-                register = new Register(id);
-                Registers[id] = register;
-                return register;
             }
         }
     }

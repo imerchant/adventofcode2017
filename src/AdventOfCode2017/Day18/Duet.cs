@@ -136,7 +136,7 @@ namespace AdventOfCode2017.Day18
         public DuetProgram(int id)
         {
             Id = id;
-            Registers = new Dictionary<char, long>();
+            Registers = new DefaultDictionary<char, long>(() => 0);
             Registers['p'] = id;
             IsWaiting = false;
             IsDone = false;
@@ -159,14 +159,7 @@ namespace AdventOfCode2017.Day18
             if (!char.IsLetter(id))
                 return ('A', -1);
 
-            if (Registers.TryGetValue(id, out var value))
-            {
-                return (id, value);
-            }
-
-            value = 0;
-            Registers[id] = value;
-            return (id, value);
+            return (id, Registers[id]);
         }
     }
 }

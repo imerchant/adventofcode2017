@@ -6,17 +6,14 @@ namespace AdventOfCode2017
 {
     public class DefaultDictionary<TKey, TValue> : IDictionary<TKey, TValue>
     {
-        private readonly Func<TValue> _defaultFactory;
+        private readonly Func<TKey, TValue> _defaultFactory;
         private readonly Dictionary<TKey, TValue> _backingDictionary;
 
         public TValue this[TKey key]
         {
             get
             {
-                if (!_backingDictionary.TryGetValue(key, out var value))
-                {
-                    _backingDictionary[key] = value = _defaultFactory();
-                }
+                TryGetValue(key, out TValue value);
                 return value;
             }
             set => _backingDictionary[key] = value;
@@ -29,18 +26,23 @@ namespace AdventOfCode2017
         public int Count => _backingDictionary.Count;
         public bool IsReadOnly => ((IDictionary<TKey, TValue>)_backingDictionary).IsReadOnly;
 
-        public DefaultDictionary(Func<TValue> defaultFactory)
+        public DefaultDictionary(Func<TValue> defaultFactory) : this(0, _ => defaultFactory())
         {
-            if (defaultFactory == null)
-                throw new ArgumentNullException(nameof(defaultFactory));
-            _defaultFactory = defaultFactory;
-            _backingDictionary = new Dictionary<TKey, TValue>();
         }
 
-        public DefaultDictionary(int capacity, Func<TValue> defaultFactory)
+        public DefaultDictionary(int capacity, Func<TValue> defaultFactory) : this(capacity, _ => defaultFactory())
+        {
+        }
+
+        public DefaultDictionary(Func<TKey, TValue> defaultFactory) : this(0, defaultFactory)
+        {
+        }
+
+        public DefaultDictionary(int capacity, Func<TKey, TValue> defaultFactory)
         {
             if (defaultFactory == null)
                 throw new ArgumentNullException(nameof(defaultFactory));
+
             _defaultFactory = defaultFactory;
             _backingDictionary = new Dictionary<TKey, TValue>(capacity);
         }
@@ -95,7 +97,7 @@ namespace AdventOfCode2017
             var result = _backingDictionary.TryGetValue(key, out value);
             if (!result)
             {
-                _backingDictionary[key] = value = _defaultFactory();
+                _backingDictionary[key] = value = _defaultFactory(key);
             }
             return result;
         }
