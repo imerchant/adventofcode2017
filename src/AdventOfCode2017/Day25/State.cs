@@ -2,7 +2,6 @@ using System.Collections.Generic;
 
 namespace AdventOfCode2017.Day25
 {
-
     public class State
     {
         public char Id { get; }
