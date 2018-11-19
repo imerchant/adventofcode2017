@@ -20,24 +20,22 @@ namespace AdventOfCode2017.Day24
 
         public IEnumerable<Bridge> BuildBridges()
         {
-            return Build(new List<(int A, int B)>(Components.Count) { (0, 0) }, Components);
+            return DepthFirst(new List<Bridge>());
         }
 
-        private static IEnumerable<Bridge> Build(List<(int A, int B)> bridge, IDictionary<int, HashSet<int>> components)
+        private IEnumerable<Bridge> DepthFirst(List<Bridge> bridges)
         {
+            var bridge = bridges.LastOrDefault()?.Components ?? new [] { (0, 0) };
             var current = bridge.Last().B;
-            foreach (var next in components[current])
+            foreach (var next in Components[current])
             {
-                if (!(bridge.Contains((current, next)) || bridge.Contains((next, current))))
+                if (!bridge.Contains((current, next)) && !bridge.Contains((next, current)))
                 {
-                    var newBridge = bridge.Append((current, next)).ToList();
-                    yield return new Bridge(newBridge);
-                    foreach (var otherNew in Build(newBridge, components))
-                    {
-                        yield return otherNew;
-                    }
+                    bridges.Add(new Bridge(bridge.Append((current, next))));
+                    DepthFirst(bridges);
                 }
             }
+            return bridges;
         }
     }
 }

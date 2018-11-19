@@ -39,7 +39,8 @@ namespace AdventOfCode2017.Day22
             {
                 for (var col = 0; col < input[row].Length; ++col)
                 {
-                    VisitedNodes[(row, col)] = input[row][col] == '#' ? NodeState.Infected : NodeState.Clean;
+                    if (input[row][col] == '#')
+                        VisitedNodes[(row, col)] = NodeState.Infected;
                 }
             }
         }
