@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using AdventOfCode2017.Day12;
 using AdventOfCode2017.Inputs;
 using FluentAssertions;
@@ -65,7 +66,7 @@ namespace AdventOfCode2017.Tests.Solutions
 
             programSet.Programs.Should().HaveCount(input.Count);
             programSet.Programs[0].Peers.Should().ContainSingle(x => x == 2);
-            programSet.Programs[4].Peers.Should().BeEquivalentTo(2, 3, 6);
+            programSet.Programs[4].Peers.Should().BeEquivalentTo(new List<int> { 2, 3, 6});
         }
     }
 }
